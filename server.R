@@ -72,9 +72,8 @@ server <- function(input, output, session){
           # the z-score plot
           observeEvent(input$plotBut,{
             output$zScoreplot <- renderPlot({
-              req(input$file1)
-              
-              plot(z_data$age,z_data$resp,
+              req(input$file1)              
+              plot(c(0:44), rnorm(44),
                    xlab = "age", ylab = "LH FSH ratio", main= "LH FSH ratio Male\n-2SD, -1SD, mean, +1SD, +2SD")
             })
           })
