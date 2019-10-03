@@ -7,16 +7,7 @@
 ## Copyright (c) Anne Lyngholm Soerensen, 2019
 ## Email: lynganne@gmail.com
 
-lms0 <- read.csv(file="/home/lcj612/ShinyApps/app-agd/data/LhFshRatio-Male.csv", header = T)
-dataP <- read.csv(file="/home/lcj612/ShinyApps/app-agd/data/datapunkter.csv", header = T)
-#agddata <- read.table("/home/lcj612/ShinyApps/app-agd/data/FritTfemale.txt")
-
-#lms0 <- read.csv(file="~/Documents/Joergen/shinyApp/app-agd/data/LhFshRatio-Male.csv", header = T)
-#dataP <- read.csv(file="~/Documents/Joergen/shinyApp/app-agd/data/datapunkter.csv", header = T)
-#agddata <- read.table("~/Documents/Joergen/shinyApp/app-agd/data/FritTfemale.txt")
-
-source("/home/lcj612/ShinyApps/app-agd/functions.R")
-# source("~/Documents/Joergen/shinyApp/app-agd/functions.R")
+source("~/functions.R")
 
 server <- function(input, output, session){
   
@@ -38,20 +29,12 @@ server <- function(input, output, session){
       output$ageAGDplot <- renderPlot({
         
         #plot(x=c(1:3), y = c(2:4))
-        plot(dataP$age,dataP$resp, ylim = c(0, 6),
+        plot(0:100,rnorm(100,0,1), ylim = c(-6, 6),
              xlab = "age", ylab = "LH FSH ratio", main= "LH FSH ratio Male\n-2SD, -1SD, mean, +1SD, +2SD",
              pch = 16, col = "gray90")
-        lines(lms0$age,lms0$median)
-        lines(lms0$age,lms0$minus1sd)
-        lines(lms0$age,lms0$minus2sd)
-        lines(lms0$age,lms0$plus1sd)
-        lines(lms0$age,lms0$plus2sd)
         if(!is.null(addData$dataset0)){
           points(addData$dataset0$age, addData$dataset0$resp, col = "red", pch = 16,
                  cex = 2)
-          zDataPlot <- zScore(modelData = lms0, newData = addData$dataset0)
-          text(addData$dataset0$age, addData$dataset0$resp, labels=paste("ID:", zDataPlot$id,"\n z:",
-                                                                         round(zDataPlot$z,2)), cex= 1, pos = 3)
         }})
       
           # data upload visualization help text
@@ -91,16 +74,8 @@ server <- function(input, output, session){
             output$zScoreplot <- renderPlot({
               req(input$file1)
               
-              zData <- zScore(modelData = lms0, newData = z_data)
-              par(mfrow = c(1,2))
-              plot(lms0$age,lms0$median, type = "l", ylim = c(0, max(lms0$plus2sd)),
+              plot(z_data$age,z_data$resp),
                    xlab = "age", ylab = "LH FSH ratio", main= "LH FSH ratio Male\n-2SD, -1SD, mean, +1SD, +2SD")
-              lines(lms0$age,lms0$minus1sd)
-              lines(lms0$age,lms0$minus2sd)
-              lines(lms0$age,lms0$plus1sd)
-              lines(lms0$age,lms0$plus2sd)
-              points(z_data$age, z_data$resp, col = "red", pch = 16)
-              plot(zData$age, zData$z, xlab = "age", ylab = "z-score", main = "Z-score", pch = 16)
             })
           })
           
