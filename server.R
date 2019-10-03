@@ -29,7 +29,7 @@ server <- function(input, output, session){
       output$ageAGDplot <- renderPlot({
         
         #plot(x=c(1:3), y = c(2:4))
-        plot(0:100,rnorm(100,0,1), ylim = c(-6, 6),
+        plot(c(1:100),rnorm(100,0,1), ylim = c(-6, 6),
              xlab = "age", ylab = "LH FSH ratio", main= "LH FSH ratio Male\n-2SD, -1SD, mean, +1SD, +2SD",
              pch = 16, col = "gray90")
         if(!is.null(addData$dataset0)){
