@@ -74,7 +74,7 @@ server <- function(input, output, session){
             output$zScoreplot <- renderPlot({
               req(input$file1)
               
-              plot(z_data$age,z_data$resp),
+              plot(z_data$age,z_data$resp,
                    xlab = "age", ylab = "LH FSH ratio", main= "LH FSH ratio Male\n-2SD, -1SD, mean, +1SD, +2SD")
             })
           })
