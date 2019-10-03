@@ -1,4 +1,12 @@
 #### Functioner i R
+eta1 <- 2
+eta2 <- 1
+eta3 <- 0
+
+resp0 <- function(theta) 1/(1+exp(theta+eta1)+exp(2*theta+eta2)+exp(3*theta+eta3))
+resp1 <- function(theta) exp(theta+eta1)/(1+exp(theta+eta1)+exp(2*theta+eta2)+exp(3*theta+eta3))
+resp2 <- function(theta) exp(2*theta+eta2)/(1+exp(theta+eta1)+exp(2*theta+eta2)+exp(3*theta+eta3))
+resp3 <- function(theta) exp(3*theta+eta3)/(1+exp(theta+eta1)+exp(2*theta+eta2)+exp(3*theta+eta3))
 
 interpoler<-function(a0,y0,a1,y1,a) y0+(y1-y0)/(a1-a0)*(a-a0)
 calc.perc<-function(m,l,s,z) return(as.numeric(m*(1+l*s*z)^(1/l)))
